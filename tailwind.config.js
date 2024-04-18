@@ -6,9 +6,18 @@ export default {
 			animation: {
 				bounce: 'bounce 1s infinite',
 				pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-				'text-slide': 'text-slide 12.5s cubic-bezier(0.83, 0, 0.17, 1) infinite'
+				'text-slide': 'text-slide 12.5s cubic-bezier(0.83, 0, 0.17, 1) infinite',
+				wave: 'wave 1.5s infinite'
 			},
 			keyframes: {
+				wave: {
+					'0%, 100%': {
+						transform: 'rotate(0)'
+					},
+					'50%': {
+						transform: 'rotate(20deg)'
+					}
+				},
 				'text-slide': {
 					'0%, 13.33%': {
 						transform: 'translateY(0%)'
