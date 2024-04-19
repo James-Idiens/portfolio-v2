@@ -3,6 +3,9 @@ export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
 		extend: {
+			fontFamily: {
+				'noto-sans': ['Noto Sans', 'sans-serif'],
+			},
 			animation: {
 				bounce: 'bounce 1s infinite',
 				pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',

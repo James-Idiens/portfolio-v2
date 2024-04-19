@@ -109,47 +109,152 @@
 		</div>
 	</div>
 
-	<div id="div3" class="flex flex-col md:flex-row items-center justify-center h-screen">
-		<div class="flex-1 px-6 py-12 md:p-12">
-			<h2 class="text-xl md:text-3xl text-white mb-6">Stuff I've worked with</h2>
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-				<ul class="text-yellow-500 list-none">
-					<li class="text-base md:text-lg">TypeScript/JavaScript</li>
-					<li class="text-base md:text-lg">React</li>
-					<li class="text-base md:text-lg">SvelteKit</li>
-					<li class="text-base md:text-lg">Node.js</li>
-					<li class="text-base md:text-lg">Tailwind CSS</li>
-					<li class="text-base md:text-lg">SQL</li>
-					<li class="text-base md:text-lg">C#/.NET</li>
-				</ul>
-				<ul class="text-green-500 list-none">
-					<li class="text-base md:text-lg">Playwright</li>
-					<li class="text-base md:text-lg">Jest/Vitest</li>
-					<li class="text-base md:text-lg">Manual testing</li>
-				</ul>
-				<ul class="text-indigo-500">
-					<li class="text-base md:text-lg">Docker</li>
-					<li class="text-base md:text-lg">Azure</li>
-					<li class="text-base md:text-lg">Git</li>
-					<li class="text-base md:text-lg">CI/CD pipelines</li>
-				</ul>
-			</div>
-			<div class="mt-12 text-white">
-				<h2 class="text-xl md:text-2xl font-bold mb-4">Qualifications</h2>
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-					<div>
-						<p class="text-base font-medium md:text-lg">University of Canterbury:</p>
-						<p class="text-base">BCom with a major in Management & minor in Marketing</p>
+	<div id="div3" class="h-screen absolute">
+		<h2 class="text-xl text-center font-semibold md:text-3xl text-white pt-6">
+			Skillset & Education
+		</h2>
+		<div class="flex flex-col md:flex-row items-center justify-center">
+			<div class="flex-1 px-6 py-12 md:p-12">
+				<div class="text-white jersey-15-regular grid grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1200px-Typescript_logo_2020.svg.png"
+							alt="TypeScript"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">TypeScript</p>
 					</div>
-					<div>
-						<p class="text-base font-medium md:text-lg">Dev Academy:</p>
-						<p class="text-base text-slate-200">New Zealand Certificate in Applied Software Development</p>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png"
+							alt="React"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">React</p>
+					</div>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Svelte_Logo.svg/1200px-Svelte_Logo.svg.png"
+							alt="SvelteKit"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">SvelteKit</p>
+					</div>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1280px-Node.js_logo.svg.png"
+							alt="Node.js"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">Node.js</p>
+					</div>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://www.svgrepo.com/show/374118/tailwind.svg"
+							alt="Tailwind CSS"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">Tailwind CSS</p>
+					</div>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://www.svgrepo.com/show/331760/sql-database-generic.svg"
+							alt="SQL"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">SQL</p>
+					</div>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/C_Sharp_wordmark.svg/1200px-C_Sharp_wordmark.svg.png"
+							alt="C#/.NET"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">C#/.NET</p>
+					</div>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://seeklogo.com/images/P/playwright-logo-22FA8B9E63-seeklogo.com.png"
+							alt="Playwright"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">Playwright</p>
+					</div>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://jestjs.io/img/jest.svg"
+							alt="Jest/Vitest"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">Jest/Vitest</p>
+					</div>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://www.svgrepo.com/show/439004/testing-methodologies.svg"
+							alt="Manual testing"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">Manual testing</p>
+					</div>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://www.svgrepo.com/show/349342/docker.svg"
+							alt="Docker"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">Docker</p>
+					</div>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://swimburger.net/media/ppnn3pcl/azure.png"
+							alt="Azure"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">Azure</p>
+					</div>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/1280px-Git-logo.svg.png"
+							alt="Git"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">Git</p>
+					</div>
+					<div class="shadow-md rounded p-2 m-1">
+						<img
+							src="https://code.benco.io/icon-collection/other/devops-pipelines.svg"
+							alt="CI/CD pipelines"
+							class="w-8 h-8 mx-auto mb-1"
+						/>
+						<p class="text-center text-sm font-normal">CI/CD pipelines</p>
+					</div>
+				</div>
+			</div>
+			<div class="flex-1 px-6 py-12 md:p-12">
+				<div class="text-white">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+						<div>
+							<p class="text-base font-medium md:text-lg">University of Canterbury:</p>
+							<p class="text-base">BCom with a major in Management & minor in Marketing</p>
+						</div>
+						<div>
+							<p class="text-base font-medium md:text-lg">Dev Academy:</p>
+							<p class="text-base text-slate-200">
+								New Zealand Certificate in Applied Software Development
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="flex-1 px-6 py-12 md:p-12">
-			<FadeIn />
-		</div>
+		<Arrow targetId="div4" />
 	</div>
 {/if}
+
+<style>
+	.jersey-15-regular {
+		font-family: 'Jersey 15', sans-serif;
+		font-weight: 400;
+		font-style: normal;
+	}
+</style>
