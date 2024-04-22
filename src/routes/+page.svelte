@@ -109,7 +109,7 @@
 		</div>
 	</div>
 
-	<div id="div3" class="h-screen absolute">
+	<div id="div3" class="h-screen relative">
 		<h2 class="text-xl text-center font-semibold md:text-3xl text-white pt-6">
 			Skillset & Education
 		</h2>
@@ -248,6 +248,9 @@
 			</div>
 		</div>
 		<Arrow targetId="div4" />
+	</div>
+	<div id="div4" class="flex flex-col items-center justify-center h-screen relative">
+	<FadeIn />
 	</div>
 {/if}
 
