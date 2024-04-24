@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Arrow from '../components/arrow.svelte';
 	import FadeIn from '../components/fadeIn.svelte';
+	import Faq from '../components/faq.svelte';
 
 	let visible: boolean = true;
 
@@ -28,15 +29,17 @@
 	}
 </script>
 
-<!-- <p transition:typewriter={{ speed: 1 }}>The quick brown fox jumps over the lazy dog</p> -->
-
 {#if visible}
 	<div class="flex flex-col items-center justify-center h-screen">
 		<button
-			class="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold text-xl px-6 py-2 rounded-full shadow-lg hover:from-purple-600 hover:to-blue-600 transition-colors duration-200 animate-pulse"
+			class="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold text-xl px-6 py-2 rounded-full shadow-lg hover:from-purple-600 hover:to-blue-600 transition-colors duration-200 animate-pulse waviy"
 			on:click={() => (visible = !visible)}
 		>
-			ENTER
+			<span style="--i:1">E</span>
+			<span style="--i:2">N</span>
+			<span style="--i:3">T</span>
+			<span style="--i:4">E</span>
+			<span style="--i:5">R</span>
 		</button>
 	</div>
 {:else}
@@ -229,6 +232,7 @@
 						<p class="text-center text-sm font-normal">CI/CD pipelines</p>
 					</div>
 				</div>
+				<p class="text-white text-center md:pt-3">Things I've worked with ☝</p>
 			</div>
 			<div class="flex-1 px-6 py-12 md:p-12">
 				<div class="text-white">
@@ -250,7 +254,7 @@
 		<Arrow targetId="div4" />
 	</div>
 	<div id="div4" class="flex flex-col items-center justify-center h-screen relative">
-	<FadeIn />
+		<Faq />
 	</div>
 {/if}
 
@@ -259,5 +263,18 @@
 		font-family: 'Jersey 15', sans-serif;
 		font-weight: 400;
 		font-style: normal;
+	}
+	.waviy span {
+		position: relative;
+		display: inline-block;
+		color: #fff;
+		animation: flip 3s infinite;
+		animation-delay: calc(0.2s * var(--i));
+	}
+	@keyframes flip {
+		0%,
+		80% {
+			transform: rotateY(360deg);
+		}
 	}
 </style>

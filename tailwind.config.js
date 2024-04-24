@@ -4,7 +4,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				'noto-sans': ['Noto Sans', 'sans-serif'],
+				'noto-sans': ['Noto Sans', 'sans-serif']
 			},
 			animation: {
 				bounce: 'bounce 1s infinite',

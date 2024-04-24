@@ -45,14 +45,17 @@
 		</button>
 	</div>
 	<div class="flex-grow flex items-center justify-center">
-		<div class="w-full text-center">
+		<div class="w-full md:w-1/3 text-center">
 			{#if selectedQuestion === 'about'}
 				<p transition:fade={{ duration: 500 }} class="text-white">
-					A product engineer is someone who does it all...
+					I'm currently a contracted Product Engineer working on a software used by majority of local government across the country. While I'm in the early stages of my IT career, my job has allowed me to work across a huge variety of disciplines and technologies. As a Product Engineer I provide a bridge between the Product Owner and the Development team. I'm equally confortable writing code, as I am presenting to stakeholders. 
+
+					Some highlights 
+
 				</p>
 			{:else if selectedQuestion === 'job'}
 				<p transition:fade={{ duration: 500 }} class="text-white">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+					I'm based in Christchurch, but I'm fully open to remote work. My main passion is for front-end development, but I also enjoy testing 
 				</p>
 			{:else if selectedQuestion === 'contact'}
 				<p transition:fade={{ duration: 500 }} class="text-white">You can reach me at</p>
