@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Arrow from '../components/arrow.svelte';
 	import FadeIn from '../components/fadeIn.svelte';
-	import Faq from '../components/faq.svelte';
 
 	let visible: boolean = true;
 
@@ -84,7 +83,7 @@
 				<ul class="block animate-text-slide text-left leading-tight [&_li]:block">
 					<li class="text-blue-500">Web Development?</li>
 					<li class="text-green-500">Automation Testing?</li>
-					<li class="text-purple-500">DevOps?</li>
+					<li class="text-purple-500">Agile Methodolgies?</li>
 					<li class="text-yellow-500">Quality Assurance?</li>
 					<li class="text-pink-500">Frontend Development?</li>
 					<li class="text-red-500">IT Support?</li>
@@ -96,7 +95,7 @@
 	</div>
 	<div id="div2" class="flex flex-col items-center justify-center h-screen relative">
 		<div class="text-center text-white font-medium text-2xl md:text-4xl">
-			<h2 class="mb-12">
+			<h2 class="mb-12 px-1 md:px-0">
 				<span class="inline-block animate-wave">👋</span> I'm James, a Product Engineer.
 			</h2>
 			<div class="flex justify-center mt-12">
@@ -238,12 +237,12 @@
 				<div class="text-white">
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
-							<p class="text-base font-medium md:text-lg">University of Canterbury:</p>
-							<p class="text-base">BCom with a major in Management & minor in Marketing</p>
+							<p class="text-small font-medium md:text-lg">University of Canterbury:</p>
+							<p class="text-small">BCom with a major in Management & minor in Marketing</p>
 						</div>
 						<div>
-							<p class="text-base font-medium md:text-lg">Dev Academy:</p>
-							<p class="text-base text-slate-200">
+							<p class="text-small font-medium md:text-lg">Dev Academy:</p>
+							<p class="text-small text-slate-200">
 								New Zealand Certificate in Applied Software Development
 							</p>
 						</div>
@@ -253,8 +252,44 @@
 		</div>
 		<Arrow targetId="div4" />
 	</div>
-	<div id="div4" class="flex flex-col items-center justify-center h-screen relative">
-		<Faq />
+	<div
+		id="div4"
+		class="flex flex-col h-screen relative items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800"
+	>
+		<div class="max-w-md sm:text-left md:text-center px-3 md:px-0">
+			<h2 class="text-4xl font-bold text-white mb-2 text-center">About Me</h2>
+			<p class="text-lg text-gray-400 text-center">
+				<span><a href="https://github.com/James-Idiens">GitHub</a></span>|
+				<span><a href="https://nz.linkedin.com/in/james-idiens-1b9ab5282">LinkedIn</a></span>
+			</p>
+			<p class="text-gray-300 mt-4">
+				I'm currently a contract Product Engineer, and I'm on the lookout for my next exciting
+				opportunity. I studied a Bachelor of Commerce at the University of Canterbury before more
+				recently completing a full stack software development bootcamp at Dev Academy.
+			</p>
+			<p class="text-gray-300 mt-2">
+				I often get the question of why I decided to make the switch from commerce to tech. It's
+				pretty simple really: I love solving problems, being able to build things, and the endless
+				learning opportunities that come with the industry.
+			</p>
+			<p class="text-gray-300 mt-2">
+				What am I looking for? I have a real interest in web development and in particular, the
+				frontend side of things. I also enjoy testing whether that be writing automated tests or
+				manual testing.
+			</p>
+			<p class="text-gray-300 mt-2">
+				Download my CV below, and get in touch if you think I could be a good fit for your team.
+			</p>
+			<div class="mt-6 text-center">
+				<a
+					href="src/lib/assets/James-Idiens-CV.pdf"
+					download="James-Idiens-CV.pdf"
+					class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold text-xl px-6 py-2 rounded-full shadow-lg hover:from-blue-600 hover:to-cyan-600 transition-colors duration-200"
+				>
+					Download CV
+				</a>
+			</div>
+		</div>
 	</div>
 {/if}
 
