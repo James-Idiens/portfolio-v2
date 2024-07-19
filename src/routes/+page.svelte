@@ -111,11 +111,11 @@
 		</div>
 	</div>
 
-	<div id="div3" class="h-screen relative">
+	<div id="div3" class="h-screen flex flex-col justify-center relative">
 		<h2 class="text-xl text-center font-semibold md:text-3xl text-white pt-6">
 			Skillset & Education
 		</h2>
-		<div class="flex flex-col md:flex-row items-center justify-center">
+		<div class="flex flex-col md:flex-row items-center justify-center flex-grow">
 			<div class="flex-1 px-6 py-12 md:p-12">
 				<div class="text-white jersey-15-regular grid grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
 					<div class="shadow-md rounded p-2 m-1">
@@ -266,11 +266,6 @@
 				I'm currently a contract Product Engineer, and I'm on the lookout for my next exciting
 				opportunity. I studied a Bachelor of Commerce at the University of Canterbury before more
 				recently completing a full stack software development bootcamp at Dev Academy.
-			</p>
-			<p class="text-gray-300 mt-2">
-				I often get the question of why I decided to make the switch from commerce to tech. It's
-				pretty simple really: I love solving problems, being able to build things, and the endless
-				learning opportunities that come with the industry.
 			</p>
 			<p class="text-gray-300 mt-2">
 				What am I looking for? I have a real interest in web development and in particular, the
