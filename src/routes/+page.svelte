@@ -31,6 +31,7 @@
 {#if visible}
 	<div class="flex flex-col items-center justify-center h-screen">
 		<button
+			data-testid="enter-button"
 			class="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold text-xl px-6 py-2 rounded-full shadow-lg hover:from-purple-600 hover:to-blue-600 transition-colors duration-200 animate-pulse waviy"
 			on:click={() => (visible = !visible)}
 		>
@@ -42,7 +43,7 @@
 		</button>
 	</div>
 {:else}
-	<div class="flex flex-col items-center justify-center h-screen">
+	<div data-testid="hero-text" class="flex flex-col items-center justify-center h-screen">
 		<h1 class="text-4xl font-bold">
 			<span
 				transition:typewriter={{ speed: 1, delay: 0 }}
@@ -73,7 +74,7 @@
 		</h1>
 		<Arrow targetId="div1" />
 	</div>
-	<div id="div1" class="flex flex-col items-center justify-center h-screen relative">
+	<!-- <div id="div1" class="flex flex-col items-center justify-center h-screen relative">
 		<div
 			class="text-center font-extrabold text-2xl md:text-4xl [text-wrap:balance] bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200"
 		>
@@ -92,8 +93,8 @@
 			</span>
 		</div>
 		<Arrow targetId="div2" />
-	</div>
-	<div id="div2" class="flex flex-col items-center justify-center h-screen relative">
+	</div> -->
+	<div id="div1" class="flex flex-col items-center justify-center h-screen relative">
 		<div class="text-center text-white font-medium text-2xl md:text-4xl">
 			<h2 class="mb-12 px-1 md:px-0">
 				<span class="inline-block animate-wave">👋</span> I'm James, a Product Engineer.
@@ -107,11 +108,11 @@
 			</div>
 		</div>
 		<div class="arrow-container absolute bottom-2 left-1/2 transform -translate-x-1/2">
-			<Arrow targetId="div3" />
+			<Arrow targetId="div2" />
 		</div>
 	</div>
 
-	<div id="div3" class="h-screen flex flex-col justify-center relative">
+	<div id="div2" class="h-screen flex flex-col justify-center relative">
 		<h2 class="text-xl text-center font-semibold md:text-3xl text-white pt-6">
 			Skillset & Education
 		</h2>
@@ -165,14 +166,6 @@
 							class="w-8 h-8 mx-auto mb-1"
 						/>
 						<p class="text-center text-sm font-normal">SQL</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/C_Sharp_wordmark.svg/1200px-C_Sharp_wordmark.svg.png"
-							alt="C#/.NET"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">C#/.NET</p>
 					</div>
 					<div class="shadow-md rounded p-2 m-1">
 						<img
@@ -250,10 +243,10 @@
 				</div>
 			</div>
 		</div>
-		<Arrow targetId="div4" />
+		<Arrow targetId="div3" />
 	</div>
 	<div
-		id="div4"
+		id="div3"
 		class="flex flex-col h-screen relative items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800"
 	>
 		<div class="max-w-md sm:text-left md:text-center px-3 md:px-0">
@@ -263,14 +256,15 @@
 				<span><a href="https://nz.linkedin.com/in/james-idiens-1b9ab5282">LinkedIn</a></span>
 			</p>
 			<p class="text-gray-300 mt-4">
-				I'm currently a contract Product Engineer, and I'm on the lookout for my next exciting
-				opportunity. I studied a Bachelor of Commerce at the University of Canterbury before more
-				recently completing a full stack software development bootcamp at Dev Academy.
+				I'm a Product Engineer, and I'm on the lookout for my next exciting opportunity. I studied a
+				Bachelor of Commerce at the University of Canterbury before more recently completing a full
+				stack software development bootcamp at Dev Academy.
 			</p>
 			<p class="text-gray-300 mt-2">
-				What am I looking for? I have a real interest in web development and in particular, the
-				frontend side of things. I also enjoy testing whether that be writing automated tests or
-				manual testing.
+				What does a Product Engineer do? My job has me doing a bit of everything. I work on leading
+				testing, writing documentation, creating websites, facilitating sprint ceremonies, support
+				cases, and even DevOps. What I'm on the lookout for is a role where I can specialize my
+				focus and learn more. I've found a real interest in testing and web development.
 			</p>
 			<p class="text-gray-300 mt-2">
 				Download my CV below, and get in touch if you think I could be a good fit for your team.
