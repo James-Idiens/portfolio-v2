@@ -100,11 +100,7 @@
 				<span class="inline-block animate-wave">👋</span> I'm James, a Product Engineer.
 			</h2>
 			<div class="flex justify-center mt-12">
-				<img
-					src="src/lib/assets/profile.webp"
-					alt="James Headshot"
-					class="w-1/2 h-auto rounded-full"
-				/>
+				<img src="/profile.webp" alt="James Headshot" class="w-1/2 h-auto rounded-full" />
 			</div>
 		</div>
 		<div class="arrow-container absolute bottom-2 left-1/2 transform -translate-x-1/2">
@@ -271,7 +267,7 @@
 			</p>
 			<div class="mt-6 text-center">
 				<a
-					href="src/lib/assets/James-Idiens-CV.pdf"
+					href="/James-Idiens-CV.pdf"
 					download="James-Idiens-CV.pdf"
 					class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold text-xl px-6 py-2 rounded-full shadow-lg hover:from-blue-600 hover:to-cyan-600 transition-colors duration-200"
 				>
