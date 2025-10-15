@@ -1,300 +1,200 @@
 <script lang="ts">
-	import Arrow from '../components/arrow.svelte';
-	import FadeIn from '../components/fadeIn.svelte';
+	let links = [
+		{
+			name: 'GitHub',
+			url: 'https://github.com/James-Idiens',
+			icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg'
+		},
+		{
+			name: 'LinkedIn',
+			url: 'https://nz.linkedin.com/in/james-idiens-1b9ab5282',
+			icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg'
+		}
+	];
 
-	let visible: boolean = true;
+	let rotation = 0;
+	let isDragging = false;
+	let startAngle = 0;
+	let currentRotation = 0;
+	let velocity = 0;
+	let lastAngle = 0;
+	let lastTime = 0;
+	let animationFrame: number;
+	let autoSpinFrame: number;
+	let isAutoSpinning = true;
 
-	function typewriter(
-		node: HTMLElement,
-		{ speed = 1, delay = 0 }: { speed?: number; delay?: number }
-	) {
-		const valid = node.childNodes.length === 1 && node.childNodes[0].nodeType === Node.TEXT_NODE;
+	// Auto-spin animation
+	function autoSpin() {
+		if (isAutoSpinning) {
+			rotation += 0.15; // Speed of auto-spin
+			autoSpinFrame = requestAnimationFrame(autoSpin);
+		}
+	}
 
-		if (!valid) {
-			throw new Error(`This transition only works on elements with a single text node child`);
+	// Start auto-spinning when component loads
+	if (typeof window !== 'undefined') {
+		autoSpin();
+	}
+
+	function getAngle(event: MouseEvent, element: HTMLElement) {
+		const rect = element.getBoundingClientRect();
+		const centerX = rect.left + rect.width / 2;
+		const centerY = rect.top + rect.height / 2;
+		return Math.atan2(event.clientY - centerY, event.clientX - centerX) * (180 / Math.PI);
+	}
+
+	function handleMouseDown(event: MouseEvent) {
+		// Stop auto-spinning when user interacts
+		isAutoSpinning = false;
+		cancelAnimationFrame(autoSpinFrame);
+
+		isDragging = true;
+		const wheel = event.currentTarget as HTMLElement;
+		startAngle = getAngle(event, wheel);
+		lastAngle = startAngle;
+		currentRotation = rotation;
+		velocity = 0;
+		lastTime = Date.now();
+		cancelAnimationFrame(animationFrame);
+	}
+
+	function handleMouseMove(event: MouseEvent) {
+		if (!isDragging) return;
+		const wheel = document.getElementById('tech-wheel') as HTMLElement;
+		if (!wheel) return;
+
+		const currentAngle = getAngle(event, wheel);
+		const deltaAngle = currentAngle - lastAngle;
+		const now = Date.now();
+		const deltaTime = now - lastTime;
+
+		// Handle angle wrapping
+		let normalizedDelta = deltaAngle;
+		if (Math.abs(deltaAngle) > 180) {
+			normalizedDelta = deltaAngle > 0 ? deltaAngle - 360 : deltaAngle + 360;
 		}
 
-		const text: string = node.textContent ?? '';
-		const duration: number = text.length / (speed * 0.01);
+		rotation = currentRotation + (currentAngle - startAngle);
+		velocity = normalizedDelta / (deltaTime || 1);
+		lastAngle = currentAngle;
+		lastTime = now;
+	}
 
-		return {
-			delay,
-			duration,
-			tick: (t: number) => {
-				const i: number = Math.floor(text.length * t);
-				node.textContent = text.slice(0, i);
+	function handleMouseUp() {
+		if (!isDragging) return;
+		isDragging = false;
+		currentRotation = rotation;
+		applyInertia();
+	}
+
+	function applyInertia() {
+		const decay = 0.95;
+
+		function animate() {
+			if (Math.abs(velocity) > 0.1) {
+				rotation += velocity * 16;
+				velocity *= decay;
+				animationFrame = requestAnimationFrame(animate);
+			} else {
+				// Resume auto-spinning after inertia stops
+				isAutoSpinning = true;
+				autoSpin();
 			}
-		};
+		}
+		animate();
+	}
+
+	// Global mouse event listeners
+	if (typeof window !== 'undefined') {
+		window.addEventListener('mousemove', handleMouseMove);
+		window.addEventListener('mouseup', handleMouseUp);
 	}
 </script>
 
-{#if visible}
-	<div class="flex flex-col items-center justify-center h-screen">
-		<button
-			data-testid="enter-button"
-			class="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold text-xl px-6 py-2 rounded-full shadow-lg hover:from-purple-600 hover:to-blue-600 transition-colors duration-200 animate-pulse waviy"
-			on:click={() => (visible = !visible)}
-		>
-			<span style="--i:1">E</span>
-			<span style="--i:2">N</span>
-			<span style="--i:3">T</span>
-			<span style="--i:4">E</span>
-			<span style="--i:5">R</span>
-		</button>
+<div
+	class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 text-white p-6"
+>
+	<img src="/profile.webp" alt="James Idiens" class="w-32 h-32 rounded-full shadow-lg mb-6" />
+
+	<h1 class="text-4xl font-bold mb-2">James Idiens</h1>
+	<p class="text-lg text-gray-300 mb-4">Product Engineer • Christchurch, New Zealand</p>
+
+	<p class="max-w-xl text-center text-gray-400 leading-relaxed mb-8">
+		I’m a Product Engineer bridging testing, automation, and cloud operations. I’ve led testing and QA processes, handled client deployments, and maintained Azure infrastructure, helping teams deliver reliable, high-quality software. I enjoy tackling problems across the stack and learning new technologies along the way.
+	</p>
+
+	<div class="flex space-x-6">
+		{#each links as link}
+			<a
+				href={link.url}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 transition-colors duration-200 px-4 py-2 rounded-lg shadow-md"
+			>
+				<img src={link.icon} alt={link.name} class="w-5 h-5" />
+				<span>{link.name}</span>
+			</a>
+		{/each}
 	</div>
-{:else}
-	<div data-testid="hero-text" class="flex flex-col items-center justify-center h-screen">
-		<h1 class="text-4xl font-bold">
-			<span
-				transition:typewriter={{ speed: 1, delay: 0 }}
-				class="bg-gradient-to-br from-blue-500 to-cyan-300 bg-clip-text text-transparent box-decoration-clone"
-				>Are</span
+</div>
+<!--- Rotating tech bit-->
+<section
+	id="tech-cloud"
+	class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-950 to-gray-900 text-white relative overflow-hidden"
+>
+	<h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Tech I've Worked With</h2>
+
+	<div
+		id="tech-wheel"
+		class="relative w-80 h-80 cursor-grab active:cursor-grabbing"
+		on:mousedown={handleMouseDown}
+		style="transform: rotate({rotation}deg); transition: {isDragging
+			? 'none'
+			: 'transform 0.1s ease-out'};"
+	>
+		{#each [{ name: 'TypeScript', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' }, { name: 'Node.js', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' }, { name: 'Playwright', src: 'https://seeklogo.com/images/P/playwright-logo-22FA8B9E63-seeklogo.com.png' }, { name: 'Vitest', src: 'https://vitest.dev/logo.svg' }, { name: 'Azure', src: 'https://swimburger.net/media/ppnn3pcl/azure.png' }, { name: 'Docker', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' }, { name: 'CI/CD', src: 'https://code.benco.io/icon-collection/other/devops-pipelines.svg' }, { name: 'SQL', src: 'https://www.svgrepo.com/show/331760/sql-database-generic.svg' }, { name: 'Git', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' }, { name: 'Linux', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg' }] as tech, i}
+			<div
+				class="absolute group"
+				style="top: calc(50% - 24px); left: calc(50% - 24px); transform: rotate({i *
+					(360 / 10)}deg) translate(120px) rotate(-{i * (360 / 10)}deg);"
 			>
-		</h1>
-		<h1 class="text-5xl font-bold py-2">
-			<span
-				transition:typewriter={{ speed: 1, delay: 800 }}
-				class="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent box-decoration-clone"
-				>You</span
-			>
-		</h1>
-		<h1 class="text-6xl font-bold">
-			<span
-				transition:typewriter={{ speed: 1, delay: 1600 }}
-				class="bg-gradient-to-br from-pink-500 to-violet-500 bg-clip-text text-transparent box-decoration-clone"
-				>Hiring</span
-			>
-		</h1>
-		<h1 class="text-6xl font-bold">
-			<span
-				transition:typewriter={{ speed: 0.3, delay: 2400 }}
-				class="bg-gradient-to-br from-green-500 to-green-900 bg-clip-text text-transparent box-decoration-clone pt-2"
-				>?</span
-			>
-		</h1>
-		<Arrow targetId="div1" />
-	</div>
-	<!-- <div id="div1" class="flex flex-col items-center justify-center h-screen relative">
-		<div
-			class="text-center font-extrabold text-2xl md:text-4xl [text-wrap:balance] bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200"
-		>
-			Looking for someone with experience in <span
-				class="text-indigo-500 inline-flex flex-col h-[calc(theme(fontSize.2xl)*theme(lineHeight.tight))] md:h-[calc(theme(fontSize.4xl)*theme(lineHeight.tight))] overflow-hidden"
-			>
-				<ul class="block animate-text-slide text-left leading-tight [&_li]:block">
-					<li class="text-blue-500">Web Development?</li>
-					<li class="text-green-500">Automation Testing?</li>
-					<li class="text-purple-500">Agile Methodolgies?</li>
-					<li class="text-yellow-500">Quality Assurance?</li>
-					<li class="text-pink-500">Frontend Development?</li>
-					<li class="text-red-500">IT Support?</li>
-					<li aria-hidden="true">IT Support</li>
-				</ul>
-			</span>
-		</div>
-		<Arrow targetId="div2" />
-	</div> -->
-	<div id="div1" class="flex flex-col items-center justify-center h-screen relative">
-		<div class="text-center text-white font-medium text-2xl md:text-4xl">
-			<h2 class="mb-12 px-1 md:px-0">
-				<span class="inline-block animate-wave">👋</span> I'm James, a Product Engineer.
-			</h2>
-			<div class="flex justify-center mt-12">
-				<img src="/profile.webp" alt="James Headshot" class="w-1/2 h-auto rounded-full" />
+				<img
+					src={tech.src}
+					alt={tech.name}
+					class="w-10 h-10 opacity-90 hover:opacity-100 transition-transform hover:scale-125 duration-300 filter drop-shadow-lg"
+				/>
+				<div
+					class="absolute left-1/2 -translate-x-1/2 -bottom-8 bg-gray-800 text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap"
+				>
+					{tech.name}
+				</div>
 			</div>
-		</div>
-		<div class="arrow-container absolute bottom-2 left-1/2 transform -translate-x-1/2">
-			<Arrow targetId="div2" />
-		</div>
+		{/each}
 	</div>
 
-	<div id="div2" class="h-screen flex flex-col justify-center relative">
-		<h2 class="text-xl text-center font-semibold md:text-3xl text-white pt-6">
-			Skillset & Education
-		</h2>
-		<div class="flex flex-col md:flex-row items-center justify-center flex-grow">
-			<div class="flex-1 px-6 py-12 md:p-12">
-				<div class="text-white jersey-15-regular grid grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1200px-Typescript_logo_2020.svg.png"
-							alt="TypeScript"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">TypeScript</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png"
-							alt="React"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">React</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Svelte_Logo.svg/1200px-Svelte_Logo.svg.png"
-							alt="SvelteKit"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">SvelteKit</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1280px-Node.js_logo.svg.png"
-							alt="Node.js"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">Node.js</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://www.svgrepo.com/show/374118/tailwind.svg"
-							alt="Tailwind CSS"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">Tailwind CSS</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://www.svgrepo.com/show/331760/sql-database-generic.svg"
-							alt="SQL"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">SQL</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://seeklogo.com/images/P/playwright-logo-22FA8B9E63-seeklogo.com.png"
-							alt="Playwright"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">Playwright</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://jestjs.io/img/jest.svg"
-							alt="Jest/Vitest"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">Jest/Vitest</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://www.svgrepo.com/show/439004/testing-methodologies.svg"
-							alt="Manual testing"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">Manual testing</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://www.svgrepo.com/show/349342/docker.svg"
-							alt="Docker"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">Docker</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://swimburger.net/media/ppnn3pcl/azure.png"
-							alt="Azure"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">Azure</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/1280px-Git-logo.svg.png"
-							alt="Git"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">Git</p>
-					</div>
-					<div class="shadow-md rounded p-2 m-1">
-						<img
-							src="https://code.benco.io/icon-collection/other/devops-pipelines.svg"
-							alt="CI/CD pipelines"
-							class="w-8 h-8 mx-auto mb-1"
-						/>
-						<p class="text-center text-sm font-normal">CI/CD pipelines</p>
-					</div>
-				</div>
-				<p class="text-white text-center md:pt-3">Things I've worked with ☝</p>
-			</div>
-			<div class="flex-1 px-6 py-12 md:p-12">
-				<div class="text-white">
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-						<div>
-							<p class="text-small font-medium md:text-lg">University of Canterbury:</p>
-							<p class="text-small">BCom with a major in Management & minor in Marketing</p>
-						</div>
-						<div>
-							<p class="text-small font-medium md:text-lg">Dev Academy:</p>
-							<p class="text-small text-slate-200">
-								New Zealand Certificate in Applied Software Development
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<Arrow targetId="div3" />
+	<p class="text-gray-400 text-center text-xs mt-6">Built with SvelteKit & Tailwind CSS</p>
+
+	<div class="absolute inset-0 pointer-events-none overflow-hidden">
+		<div
+			class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_0%,transparent_70%)] animate-pulse-slow"
+		></div>
 	</div>
-	<div
-		id="div3"
-		class="flex flex-col h-screen relative items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800"
-	>
-		<div class="max-w-md sm:text-left md:text-center px-3 md:px-0">
-			<h2 class="text-4xl font-bold text-white mb-2 text-center">About Me</h2>
-			<p class="text-lg text-gray-400 text-center">
-				<span><a href="https://github.com/James-Idiens">GitHub</a></span>|
-				<span><a href="https://nz.linkedin.com/in/james-idiens-1b9ab5282">LinkedIn</a></span>
-			</p>
-			<p class="text-gray-300 mt-4">
-				I'm a Product Engineer, and I'm on the lookout for my next exciting opportunity. I studied a
-				Bachelor of Commerce at the University of Canterbury before more recently completing a full
-				stack software development bootcamp at Dev Academy.
-			</p>
-			<p class="text-gray-300 mt-2">
-				What does a Product Engineer do? My job has me doing a bit of everything. I work on leading
-				testing, writing documentation, creating websites, facilitating sprint ceremonies, support
-				cases, and even DevOps. What I'm on the lookout for is a role where I can specialize my
-				focus and learn more. I've found a real interest in testing and web development.
-			</p>
-			<p class="text-gray-300 mt-2">
-				Download my CV below, and get in touch if you think I could be a good fit for your team.
-			</p>
-			<div class="mt-6 text-center">
-				<a
-					href="/James-Idiens-CV.pdf"
-					download="James-Idiens-CV.pdf"
-					class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold text-xl px-6 py-2 rounded-full shadow-lg hover:from-blue-600 hover:to-cyan-600 transition-colors duration-200"
-				>
-					Download CV
-				</a>
-			</div>
-		</div>
-	</div>
-{/if}
+</section>
 
 <style>
-	.jersey-15-regular {
-		font-family: 'Jersey 15', sans-serif;
-		font-weight: 400;
-		font-style: normal;
-	}
-	.waviy span {
-		position: relative;
-		display: inline-block;
-		color: #fff;
-		animation: flip 3s infinite;
-		animation-delay: calc(0.2s * var(--i));
-	}
-	@keyframes flip {
+	@keyframes pulse-slow {
 		0%,
-		80% {
-			transform: rotateY(360deg);
+		100% {
+			opacity: 0.4;
 		}
+		50% {
+			opacity: 0.8;
+		}
+	}
+	.animate-pulse-slow {
+		animation: pulse-slow 6s ease-in-out infinite;
+	}
+	img {
+		object-fit: cover;
 	}
 </style>
